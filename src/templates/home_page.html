@@ -6,12 +6,15 @@
 {% endblock base_head %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-    <img src="{% static 'img/download.jpeg' %}" class="img-fluid">
-    {% if request.user.is_authenticated %} <div class="row">
-        <div class="col">
-            {{ premium_content }}
-        </div>
+
+<h1>{{ title }}</h1>
+<img src="{% static 'img/download.jpeg' %}" class="img-fluid">
+{% if request.user.is_authenticated %}
+<div class="row">
+    <div class="col">
+        {{ premium_content }}
     </div>
-    {% endif %}
+</div>
+{% endif %}
+
 {% endblock content %}
