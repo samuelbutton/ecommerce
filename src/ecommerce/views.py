@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, get_user_model
 
 
 def home_page(request):
+    # print(request.session.get('first_name', "Unknown"))
     context = {
         "title": "Hello world",
         "premium_content": "Premium"
