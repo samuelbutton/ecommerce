@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # our apps
     "accounts",
+    "billing",
     "carts",
     "products",
     "orders",
