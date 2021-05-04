@@ -2,6 +2,7 @@ import math
 from django.db import models
 from django.db.models.signals import pre_save, post_save
 
+from addresses.models import Address
 from billing.models import BillingProfile
 from carts.models import Cart
 from ecommerce.utils import unique_order_id_generator
@@ -18,7 +19,7 @@ ORDER_STATUS_CHOICES = (
 class OrderManager(models.Manager):
     def new_or_get(self, billing_profile, cart_obj):
         qs = self.get_queryset().filter(
-            billing_profile=billing_profile, cart=cart_obj, active=True)
+            billing_profile=billing_profile, cart=cart_obj, active=True, status="created")
         if qs.count() == 1:
             return qs.first(), False
         obj = self.model.objects.create(
@@ -32,8 +33,10 @@ class Order(models.Model):
     order_id = models.CharField(max_length=120, blank=True, unique=True)
     billing_profile = models.ForeignKey(
         BillingProfile, null=True, blank=True, on_delete=models.DO_NOTHING)
-    # shipping_address =
-    # billing_address =
+    shipping_address = models.ForeignKey(
+        Address, related_name="shipping_address", null=True, blank=True, on_delete=models.DO_NOTHING)
+    billing_address = models.ForeignKey(
+        Address, related_name="billing_address", null=True, blank=True, on_delete=models.DO_NOTHING)
     cart = models.ForeignKey(Cart, on_delete=models.DO_NOTHING)
     status = models.CharField(
         max_length=120, default="created", choices=ORDER_STATUS_CHOICES)
@@ -56,6 +59,22 @@ class Order(models.Model):
         self.total = new_total
         self.save()
         return new_total
+
+    def check_done(self):
+        billing_profile = self.billing_profile
+        shipping_address = self.shipping_address
+        billing_address = self.billing_address
+        total = self.total
+        if self.total <= 0:
+            return False
+        elif billing_profile and shipping_address and billing_address:
+            return True
+
+    def mark_paid(self):
+        if self.check_done():
+            self.status = "paid"
+            self.save()
+        return self.status
 
 
 def order_pre_save_receiver(sender, instance, *args, **kwargs):
