@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 
 from .forms import ContactForm
@@ -22,7 +22,17 @@ def contact_page(request):
         "form": form,
     }
     if form.is_valid():
-        print(form.cleaned_data)
+        # print(form.cleaned_data)
+        if request.is_ajax():
+            return JsonResponse({"message": "Thank you"})
+
+    if form.errors:
+        errors = form.errors.as_json()
+
+        if request.is_ajax():
+            print("Error!")
+            print(errors)
+            return HttpResponse(errors, status=400)
 
     return render(request, "contact/view.html", context)
 

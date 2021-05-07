@@ -15,3 +15,6 @@ class ContactForm(forms.Form):
             raise forms.ValidationError("email has to be gmail.com")
 
         return email
+
+    # def clean_content(self):
+    #     raise forms.ValidationError("content is wrong")
