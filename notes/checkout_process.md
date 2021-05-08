@@ -19,5 +19,5 @@
     - Cart
     - Status -- Shipped? Cancelled?
 
-
-        
+4. Backup fixtures
+    - python manage.py dumpdata products --format json --indent 4 > product/fixtures/products.json

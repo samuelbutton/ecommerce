@@ -1,0 +1,58 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "T shirt",
+        "slug": "abc",
+        "description": "this asldkm",
+        "price": "40.04",
+        "image": "",
+        "featured": false,
+        "active": true,
+        "timestamp": "2021-04-30T00:48:33.457Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "hat",
+        "slug": "hat",
+        "description": "kasdlksmdlk",
+        "price": "9.00",
+        "image": "products/30063126/30063126.png",
+        "featured": true,
+        "active": true,
+        "timestamp": "2021-04-30T00:48:33.457Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "Compiter",
+        "slug": "supercomputer",
+        "description": "aslkd",
+        "price": "439.99",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2021-04-30T00:48:33.457Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "t-shirt",
+        "slug": "tshirt",
+        "description": "this is my tshirt",
+        "price": "39.99",
+        "image": "",
+        "featured": false,
+        "active": true,
+        "timestamp": "2021-05-01T20:38:38.930Z"
+    }
+}
+]
