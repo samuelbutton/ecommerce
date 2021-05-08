@@ -20,7 +20,7 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path, include, re_path
 from django.views.generic import TemplateView
 
-from accounts.views import login_page, register_page, guest_register_view
+from accounts.views import LoginView, RegisterView, guest_register_view
 from addresses.views import checkout_address_create_view, checkout_address_reuse_view
 from carts.views import cart_detail_api_view
 from .views import home_page, about_page, contact_page
@@ -29,7 +29,7 @@ urlpatterns = [
     re_path(r'^$', home_page, name='home'),
     re_path(r'^about/$', about_page),
     re_path(r'^contact/$', contact_page, name="contact"),
-    re_path(r'^login/$', login_page, name="login"),
+    re_path(r'^login/$', LoginView.as_view(), name="login"),
     re_path(r'^checkout/address/create/$',
             checkout_address_create_view, name="checkout_address_create"),
     re_path(r'^checkout/address/reuse/$',
@@ -38,7 +38,7 @@ urlpatterns = [
     re_path(r'^logout/$', LogoutView.as_view(), name="logout"),
     re_path(r'^api/cart/$', cart_detail_api_view, name="api-cart"),
     re_path(r'^cart/', include(("carts.urls", "carts"), namespace="cart")),
-    re_path(r'^register/$', register_page, name="register"),
+    re_path(r'^register/$', RegisterView.as_view(), name="register"),
     re_path(r'^bootstrap/$',
             TemplateView.as_view(template_name="bootstrap/example.html")),
     re_path(r'^products/', include(("products.urls",
